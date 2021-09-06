@@ -1,9 +1,9 @@
-const EditPosts = () => {
+const EditPost = () => {
     return (
         <div>
-            Edit Posts Page
+            Edit Post Page
         </div>
     )
 }
 
-export default EditPosts
+export default EditPost
