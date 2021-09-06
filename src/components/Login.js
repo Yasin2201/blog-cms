@@ -1,4 +1,4 @@
-const Login = () => {
+const Login = ({ setUserAuthenticated }) => {
     const API_URL = process.env.REACT_APP_API_URL;
 
     const onLogin = async (e) => {
@@ -9,30 +9,45 @@ const Login = () => {
             password: formData.get('password')
         }
 
-        const response = await fetch(`${API_URL}/sign-in`, {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(userInput)
-        })
+        try {
+            const response = await fetch(`${API_URL}/sign-in`, {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(userInput)
+            })
+            const data = await response.json()
 
-        const data = await response.json()
-        console.log(data)
+            if (response.status !== 401) {
+                sessionStorage.setItem('token', data.token)
+                sessionStorage.setItem('userAuth', data.userAuth)
+                setUserAuthenticated(true)
+            } else {
+                sessionStorage.removeItem('token')
+                sessionStorage.removeItem('userAuth')
+                setUserAuthenticated(false)
+            }
+            // console.log(data)
+        } catch (err) {
+            console.error(err)
+        }
         e.target.reset()
     }
 
     return (
         <div>
             Login Page
-            <form onSubmit={onLogin}>
-                <label htmlFor="username">Enter Username</label>
-                <input id="username" name="username" type="text" />
-                <label htmlFor="password">Enter Password</label>
-                <input id="password" name="password" type="password" />
-                <button type="submit">Sign In</button>
-            </form>
+            <div>
+                <form onSubmit={onLogin}>
+                    <label htmlFor="username">Enter Username</label>
+                    <input id="username" name="username" type="text" />
+                    <label htmlFor="password">Enter Password</label>
+                    <input id="password" name="password" type="password" />
+                    <button type="submit">Sign In</button>
+                </form>
+            </div>
         </div>
     )
 }
