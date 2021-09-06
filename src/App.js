@@ -1,6 +1,7 @@
 import Login from './components/Login'
 import Posts from './components/Posts'
-import EditPosts from './components/EditPost'
+import EditPost from './components/EditPost'
+import NewPost from './components/NewPost'
 
 function App() {
   return (
@@ -8,7 +9,8 @@ function App() {
       Blog CMS
       <Login />
       <Posts />
-      <EditPosts />
+      <EditPost />
+      <NewPost />
     </div >
   );
 }
