@@ -1,4 +1,17 @@
 const Login = () => {
+    const API_URL = process.env.REACT_APP_API_URL;
+
+    const onLogin = async (e) => {
+        e.preventDefault();
+        const formData = new FormData(e.target)
+        const userInput = {
+            username: formData.get('username'),
+            password: formData.get('password')
+        }
+
+        console.log(userInput)
+        e.target.reset()
+    }
 
     return (
         <div>
