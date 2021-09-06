@@ -6,7 +6,7 @@ import { BrowserRouter, Route, Redirect, Switch } from "react-router-dom"
 import { useEffect, useState } from 'react'
 
 const App = () => {
-  const [userAuthorsised, setUserAuthorised] = useState(false)
+  const [userAuthorised, setUserAuthorised] = useState(false)
 
   useEffect(() => {
     const userAuth = sessionStorage.getItem('userAuth')
@@ -23,7 +23,7 @@ const App = () => {
       <h1>
         Blog CMS
       </h1>
-      {!userAuthorsised &&
+      {!userAuthorised &&
         <Switch>
           <Route exact path='/login'>
             <Login setUserAuthorised={setUserAuthorised} />
@@ -31,14 +31,14 @@ const App = () => {
         </Switch>
       }
 
-      {userAuthorsised &&
+      {userAuthorised &&
         <Switch>
           <Route exact path='/login'>
             <Redirect to="/posts" />
           </Route>
 
           <Route exact path='/posts'>
-            <Posts />
+            <Posts setUserAuthorised={setUserAuthorised} />
           </Route>
 
           <Route exact path='/edit-post'>
@@ -48,7 +48,8 @@ const App = () => {
           <Route exact path='/new-post'>
             <NewPost />
           </Route>
-        </Switch>}
+        </Switch>
+      }
 
     </BrowserRouter>
   );
