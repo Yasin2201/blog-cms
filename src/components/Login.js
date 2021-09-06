@@ -1,4 +1,4 @@
-const Login = ({ setUserAuthenticated }) => {
+const Login = ({ setUserAuthorised }) => {
     const API_URL = process.env.REACT_APP_API_URL;
 
     const onLogin = async (e) => {
@@ -23,13 +23,12 @@ const Login = ({ setUserAuthenticated }) => {
             if (response.status !== 401) {
                 sessionStorage.setItem('token', data.token)
                 sessionStorage.setItem('userAuth', data.userAuth)
-                setUserAuthenticated(true)
+                setUserAuthorised(true)
             } else {
                 sessionStorage.removeItem('token')
                 sessionStorage.removeItem('userAuth')
-                setUserAuthenticated(false)
+                setUserAuthorised(false)
             }
-            // console.log(data)
         } catch (err) {
             console.error(err)
         }
