@@ -9,7 +9,17 @@ const Login = () => {
             password: formData.get('password')
         }
 
-        console.log(userInput)
+        const response = await fetch(`${API_URL}/sign-in`, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(userInput)
+        })
+
+        const data = await response.json()
+        console.log(data)
         e.target.reset()
     }
 
