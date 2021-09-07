@@ -41,8 +41,8 @@ const App = () => {
             <Posts setUserAuthorised={setUserAuthorised} />
           </Route>
 
-          <Route exact path='/edit-post'>
-            <EditPost />
+          <Route exact path='/posts/:id'>
+            <EditPost setUserAuthorised={setUserAuthorised} />
           </Route>
 
           <Route exact path='/new-post'>
