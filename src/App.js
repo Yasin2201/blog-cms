@@ -28,6 +28,9 @@ const App = () => {
           <Route exact path='/login'>
             <Login setUserAuthorised={setUserAuthorised} />
           </Route>
+          <Route exact path='/'>
+            <Redirect to="/login" />
+          </Route>
         </Switch>
       }
 
