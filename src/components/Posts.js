@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import { Link } from "react-router-dom";
 
 const Posts = ({ setUserAuthorised }) => {
     const [allPosts, setAllPosts] = useState([])
@@ -38,7 +39,11 @@ const Posts = ({ setUserAuthorised }) => {
                         <p>{post.title}</p>
                         <p>{post.text}</p>
                         <p>{post.date}</p>
-                        <button>Edit</button>
+                        <Link to={`/posts/${post._id}`}>
+                            <button>
+                                Edit Post
+                            </button>
+                        </Link>
                     </div>
                 )
             })}
