@@ -1,3 +1,4 @@
+import Navbar from './components/Navbar'
 import Login from './components/Login'
 import Posts from './components/Posts'
 import EditPost from './components/EditPost'
@@ -20,9 +21,9 @@ const App = () => {
 
   return (
     <BrowserRouter>
-      <h1>
-        Blog CMS
-      </h1>
+
+      <Navbar userAuthorised={userAuthorised} />
+
       {!userAuthorised &&
         <Switch>
           <Route exact path='/login'>
