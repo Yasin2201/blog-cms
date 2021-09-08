@@ -58,22 +58,18 @@ const EditPost = ({ setUserAuthorised }) => {
 
     const deleteComment = async (commentid) => {
         try {
-            const response = await fetch(`${API_URL}/posts/${id}/comments/${commentid}`, {
-                method: 'delete',
+            await fetch(`${API_URL}/posts/${id}/comments/${commentid}`, {
+                method: 'DELETE',
                 headers: {
+                    'Accept': 'application/json',
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${sessionStorage.getItem('token')}`
                 },
             })
-            if (response.status === 401) {
-                sessionStorage.removeItem('token')
-                sessionStorage.removeItem('userAuth')
-                setUserAuthorised(false)
-            }
-            // const newComments = postComments.filter(
-            //     (comment) => comment._id !== commentid
-            // );
-            // setPostComments(newComments);
+            const newComments = postComments.filter(
+                (comment) => comment._id !== commentid
+            );
+            setPostComments(newComments);
         } catch (err) {
             console.error(err)
         }
