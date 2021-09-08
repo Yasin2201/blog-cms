@@ -30,6 +30,25 @@ const Posts = ({ setUserAuthorised }) => {
         getAllPosts()
     }, [API_URL, setUserAuthorised])
 
+    const deletePost = async (postid) => {
+        try {
+            await fetch(`${API_URL}/posts/${postid}`, {
+                method: 'DELETE',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+                },
+            })
+            const newPosts = allPosts.filter(
+                (post) => post._id !== postid
+            );
+            setAllPosts(newPosts);
+        } catch (err) {
+            console.error(err)
+        }
+    }
+
     return (
         <div>
             {allPosts.map((post) => {
@@ -41,9 +60,12 @@ const Posts = ({ setUserAuthorised }) => {
                         <p>{post.date}</p>
                         <Link to={`/posts/${post._id}`}>
                             <button>
-                                Edit Post
+                                Edit
                             </button>
                         </Link>
+                        <button onClick={() => deletePost(post._id)}>
+                            Delete
+                        </button>
                     </div>
                 )
             })}
