@@ -33,14 +33,36 @@ const EditPost = ({ setUserAuthorised }) => {
 
     }, [API_URL, id, setUserAuthorised])
 
+    const submitEdit = async () => {
+        try {
+            const response = await fetch(`${API_URL}/posts/${id}`, {
+                method: "PUT",
+                body: JSON.stringify(post),
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+                },
+            }
+            );
+            if (response.status === 401) {
+                sessionStorage.removeItem('token')
+                sessionStorage.removeItem('userAuth')
+                setUserAuthorised(false)
+            }
+        } catch (err) {
+            console.error(err)
+        }
+    };
+
     return (
         <div>
             <h1>Post</h1>
             <div key={post._id}>
-                <p>{post.author}</p>
-                <p>{post.title}</p>
-                <p>{post.text}</p>
+                <input type="text" name="author" value={post.author} onChange={(e) => setPost({ ...post, author: e.target.value })} />
+                <input type="text" name="title" value={post.title} onChange={(e) => setPost({ ...post, title: e.target.value })} />
+                <input type="text" name="text" value={post.text} onChange={(e) => setPost({ ...post, text: e.target.value })} />
                 <p>{post.date}</p>
+                <button onClick={() => submitEdit()}>Save Changes</button>
             </div>
             <Comments id={id} setUserAuthorised={setUserAuthorised} />
         </div>
