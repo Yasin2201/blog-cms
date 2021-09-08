@@ -18,7 +18,7 @@ const App = () => {
       setUserAuthorised(false)
     }
   }, [])
-  console.log(userAuthorised)
+
   return (
     <BrowserRouter>
 
