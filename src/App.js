@@ -18,18 +18,18 @@ const App = () => {
       setUserAuthorised(false)
     }
   }, [])
-
+  console.log(userAuthorised)
   return (
     <BrowserRouter>
 
-      <Navbar userAuthorised={userAuthorised} />
+      <Navbar userAuthorised={userAuthorised} setUserAuthorised={setUserAuthorised} />
 
       {!userAuthorised &&
         <Switch>
           <Route exact path='/login'>
             <Login setUserAuthorised={setUserAuthorised} />
           </Route>
-          <Route exact path='/'>
+          <Route exact path='*'>
             <Redirect to="/login" />
           </Route>
         </Switch>
