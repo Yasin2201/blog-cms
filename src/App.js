@@ -50,7 +50,7 @@ const App = () => {
           </Route>
 
           <Route exact path='/new-post'>
-            <NewPost />
+            <NewPost setUserAuthorised={setUserAuthorised} />
           </Route>
         </Switch>
       }
