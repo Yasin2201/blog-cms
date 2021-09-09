@@ -21,7 +21,19 @@ const Comments = ({ id, setUserAuthorised }) => {
                     setUserAuthorised(false)
                 }
                 const data = await response.json()
-                setPostComments(data.posts_comments)
+                const formattedData = data.posts_comments.map((comment) => comment = {
+                    ...comment,
+                    date: new Date(comment.date).toLocaleDateString("en-gb", {
+                        year: "numeric",
+                        month: "short",
+                        day: "numeric",
+                    }),
+                    time: new Date(comment.date).toLocaleTimeString("en-US", {
+                        hour: "numeric",
+                        minute: "numeric",
+                    })
+                })
+                setPostComments(formattedData)
             } catch (err) {
                 console.error(err)
             }
@@ -49,22 +61,23 @@ const Comments = ({ id, setUserAuthorised }) => {
         }
     }
     return (
+        postComments.length > 0 &&
         <div>
-            <h1>Posts Comments</h1>
+            <h1> Posts Comments</h1>
             {postComments.map((comment) => {
                 return (
                     <div key={comment._id}>
                         <p>{comment.username}</p>
                         <p>{comment.text}</p>
-                        <p>{comment.date}</p>
+                        <p>{comment.date} @ {comment.time}</p>
                         <button onClick={() => deleteComment(comment._id)}>
                             Delete
                         </button>
                     </div>
                 )
-            })}
+            })
+            }
         </div>
     )
 }
-
 export default Comments
