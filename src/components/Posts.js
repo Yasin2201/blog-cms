@@ -22,7 +22,20 @@ const Posts = ({ setUserAuthorised }) => {
                     setUserAuthorised(false)
                 }
                 const data = await response.json()
-                setAllPosts(data.all_posts)
+
+                const formattedData = data.all_posts.map((post) => post = {
+                    ...post,
+                    date: new Date(post.date).toLocaleDateString("en-gb", {
+                        year: "numeric",
+                        month: "short",
+                        day: "numeric",
+                    }),
+                    time: new Date(post.date).toLocaleTimeString("en-US", {
+                        hour: "numeric",
+                        minute: "numeric",
+                    })
+                })
+                setAllPosts(formattedData)
             } catch (err) {
                 console.error(err)
             }
@@ -57,7 +70,7 @@ const Posts = ({ setUserAuthorised }) => {
                         <p>{post.author}</p>
                         <p>{post.title}</p>
                         <p>{post.text}</p>
-                        <p>{post.date}</p>
+                        <p>{post.date} @ {post.time}</p>
                         <Link to={`/posts/${post._id}`}>
                             <button>
                                 Edit

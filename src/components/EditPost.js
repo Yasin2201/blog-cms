@@ -24,7 +24,7 @@ const EditPost = ({ setUserAuthorised }) => {
                     setUserAuthorised(false)
                 }
                 const data = await response.json()
-                setPost(data.found_post)
+                setPost(data.found_post = { ...data.found_post, date: new Date(data.found_post.date).toLocaleString("en-US") })
             } catch (err) {
                 console.error(err)
             }
@@ -61,7 +61,7 @@ const EditPost = ({ setUserAuthorised }) => {
                 <input type="text" name="author" value={post.author} onChange={(e) => setPost({ ...post, author: e.target.value })} />
                 <input type="text" name="title" value={post.title} onChange={(e) => setPost({ ...post, title: e.target.value })} />
                 <input type="text" name="text" value={post.text} onChange={(e) => setPost({ ...post, text: e.target.value })} />
-                <p>{post.date}</p>
+                <p>Posted: {post.date}</p>
                 <button onClick={() => submitEdit()}>Save Changes</button>
             </div>
             <Comments id={id} setUserAuthorised={setUserAuthorised} />
