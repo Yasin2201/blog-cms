@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom"
+import '../styles/Navbar.css'
 
 const Navbar = ({ userAuthorised, setUserAuthorised }) => {
     const API_URL = process.env.REACT_APP_API_URL;
@@ -26,7 +27,7 @@ const Navbar = ({ userAuthorised, setUserAuthorised }) => {
             <h1>Blog CMS</h1>
 
             {userAuthorised &&
-                <div>
+                <div className="nav-actions">
                     <Link to={`/posts`}>
                         Posts
                     </Link>
