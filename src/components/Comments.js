@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import '../styles/Comments.css';
 
 const Comments = ({ id, setUserAuthorised }) => {
     const [postComments, setPostComments] = useState([]);
@@ -62,22 +63,25 @@ const Comments = ({ id, setUserAuthorised }) => {
     }
     return (
         postComments.length > 0 &&
-        <div>
+        <div id="comments-container">
             <h1> Posts Comments</h1>
-            {postComments.map((comment) => {
-                return (
-                    <div key={comment._id}>
-                        <p>{comment.username}</p>
-                        <p>{comment.text}</p>
-                        <p>{comment.date} @ {comment.time}</p>
-                        <button onClick={() => deleteComment(comment._id)}>
-                            Delete
-                        </button>
-                    </div>
-                )
-            })
-            }
+            <div id="all-comments-div">
+                {postComments.map((comment) => {
+                    return (
+                        <div className="comment-div" key={comment._id}>
+                            <h3>{comment.text}</h3>
+                            <p>{comment.date} @ {comment.time}</p>
+                            <p>Comment By {comment.username}</p>
+                            <button className="delete-btn" onClick={() => deleteComment(comment._id)}>
+                                Delete
+                            </button>
+                        </div>
+                    )
+                })
+                }
+            </div>
         </div>
+
     )
 }
 export default Comments
