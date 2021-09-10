@@ -1,6 +1,9 @@
+import { useState } from "react";
 import { useHistory } from "react-router";
+
 const NewPost = ({ setUserAuthorised }) => {
     const API_URL = process.env.REACT_APP_API_URL;
+    const [errors, setErrors] = useState()
     let history = useHistory();
 
     const onNewPostSubmit = async (e) => {
@@ -23,8 +26,12 @@ const NewPost = ({ setUserAuthorised }) => {
                 body: JSON.stringify(userInput)
             })
             const data = await response.json()
-            console.log(data)
-            history.push("/posts");
+
+            if (data.errors) {
+                setErrors(data.errors)
+            } else {
+                history.push("/posts");
+            }
 
             if (response.status === 401) {
                 sessionStorage.removeItem('token')
@@ -44,6 +51,18 @@ const NewPost = ({ setUserAuthorised }) => {
                 <textarea type="text" name="text" placeholder="Text" />
                 <button className="save-changes-btn" type="submit">Submit</button>
             </form>
+            {errors &&
+                <div>
+                    {
+                        errors.map((error) => {
+                            return (
+                                <div key={errors.indexOf(error)} className="error-message">
+                                    {error.msg}!
+                                </div>
+                            )
+                        })
+                    }
+                </div>}
         </div>
     )
 }

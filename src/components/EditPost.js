@@ -5,6 +5,7 @@ import "../styles/EditPost.css";
 
 const EditPost = ({ setUserAuthorised }) => {
     const [post, setPost] = useState([]);
+    const [errors, setErrors] = useState();
     const API_URL = process.env.REACT_APP_API_URL;
     const { id } = useParams();
 
@@ -45,6 +46,14 @@ const EditPost = ({ setUserAuthorised }) => {
                 },
             }
             );
+            const data = await response.json()
+
+            if (data.errors) {
+                setErrors(data.errors)
+            } else {
+                setErrors([{ msg: data.message }])
+            }
+
             if (response.status === 401) {
                 sessionStorage.removeItem('token')
                 sessionStorage.removeItem('userAuth')
@@ -65,6 +74,18 @@ const EditPost = ({ setUserAuthorised }) => {
                 <p>Posted: {post.date}</p>
                 <button className="save-changes-btn" onClick={() => submitEdit()}>Save Changes</button>
             </div>
+            {errors &&
+                <div>
+                    {
+                        errors.map((error) => {
+                            return (
+                                <div key={errors.indexOf(error)} className="error-message">
+                                    {error.msg}!
+                                </div>
+                            )
+                        })
+                    }
+                </div>}
             <Comments id={id} setUserAuthorised={setUserAuthorised} />
         </div>
     )
