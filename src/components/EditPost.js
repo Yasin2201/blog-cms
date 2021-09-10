@@ -1,6 +1,7 @@
-import Comments from './Comments'
+import Comments from './Comments';
 import { useState, useEffect } from "react";
 import { useParams } from "react-router";
+import "../styles/EditPost.css";
 
 const EditPost = ({ setUserAuthorised }) => {
     const [post, setPost] = useState([]);
@@ -55,14 +56,14 @@ const EditPost = ({ setUserAuthorised }) => {
     };
 
     return (
-        <div>
+        <div id="post-container">
             <h1>Post</h1>
-            <div key={post._id}>
-                <input type="text" name="author" value={post.author} onChange={(e) => setPost({ ...post, author: e.target.value })} />
-                <input type="text" name="title" value={post.title} onChange={(e) => setPost({ ...post, title: e.target.value })} />
-                <input type="text" name="text" value={post.text} onChange={(e) => setPost({ ...post, text: e.target.value })} />
+            <div className="edit-post-form" key={post._id}>
+                <input type="text" name="author" placeholder="Authors Name" value={post.author} onChange={(e) => setPost({ ...post, author: e.target.value })} />
+                <input type="text" name="title" placeholder="Title of Blog" value={post.title} onChange={(e) => setPost({ ...post, title: e.target.value })} />
+                <textarea type="text" name="text" placeholder="Enter some interesting text here..." value={post.text} onChange={(e) => setPost({ ...post, text: e.target.value })} />
                 <p>Posted: {post.date}</p>
-                <button onClick={() => submitEdit()}>Save Changes</button>
+                <button className="save-changes-btn" onClick={() => submitEdit()}>Save Changes</button>
             </div>
             <Comments id={id} setUserAuthorised={setUserAuthorised} />
         </div>
