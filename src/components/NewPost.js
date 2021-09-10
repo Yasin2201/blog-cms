@@ -36,13 +36,13 @@ const NewPost = ({ setUserAuthorised }) => {
         }
     }
     return (
-        <div>
+        <div id="post-container">
             <h1>New Post</h1>
-            <form onSubmit={(e) => onNewPostSubmit(e)}>
+            <form className="edit-post-form" onSubmit={(e) => onNewPostSubmit(e)}>
                 <input type="text" name="title" placeholder="Title" />
                 <input type="text" name="author" placeholder="Author" />
-                <input type="text" name="text" placeholder="Text" />
-                <button type='submit'>Submit</button>
+                <textarea type="text" name="text" placeholder="Text" />
+                <button className="save-changes-btn" type="submit">Submit</button>
             </form>
         </div>
     )
