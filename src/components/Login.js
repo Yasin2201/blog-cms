@@ -1,7 +1,9 @@
+import { useState } from 'react';
 import '../styles/Login.css'
 
 const Login = ({ setUserAuthorised }) => {
     const API_URL = process.env.REACT_APP_API_URL;
+    const [message, setMessage] = useState()
 
     const onLogin = async (e) => {
         e.preventDefault();
@@ -21,7 +23,11 @@ const Login = ({ setUserAuthorised }) => {
                 body: JSON.stringify(userInput)
             })
             const data = await response.json()
-
+            if (data.message) {
+                setMessage(data.message)
+            } else {
+                setMessage()
+            }
             if (response.status !== 401) {
                 sessionStorage.setItem('token', data.token)
                 sessionStorage.setItem('userAuth', data.userAuth)
@@ -47,6 +53,11 @@ const Login = ({ setUserAuthorised }) => {
                 <input id="password" name="password" type="password" />
                 <button type="submit">Sign In</button>
             </form>
+            {message &&
+                <p className="error-message">
+                    {message}!
+                </p>
+            }
         </div>
     )
 }
