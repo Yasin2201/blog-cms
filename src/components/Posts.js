@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom";
+import "../styles/Posts.css"
 
 const Posts = ({ setUserAuthorised }) => {
     const [allPosts, setAllPosts] = useState([])
@@ -63,22 +64,26 @@ const Posts = ({ setUserAuthorised }) => {
     }
 
     return (
-        <div>
+        <div id="posts-container">
             {allPosts.map((post) => {
                 return (
-                    <div key={post._id}>
-                        <p>{post.author}</p>
-                        <p>{post.title}</p>
-                        <p>{post.text}</p>
-                        <p>{post.date} @ {post.time}</p>
-                        <Link to={`/posts/${post._id}`}>
-                            <button>
-                                Edit
+                    <div className="posts-div" key={post._id}>
+                        <h1>{post.title}</h1>
+                        <div>
+                            <p>{post.date} @ {post.time}</p>
+                            <p>Post By {post.author}</p>
+                        </div>
+
+                        <div className="post-actions">
+                            <Link to={`/posts/${post._id}`}>
+                                <button className="edit-btn">
+                                    Edit
+                                </button>
+                            </Link>
+                            <button className="delete-btn" onClick={() => deletePost(post._id)}>
+                                Delete
                             </button>
-                        </Link>
-                        <button onClick={() => deletePost(post._id)}>
-                            Delete
-                        </button>
+                        </div>
                     </div>
                 )
             })}
