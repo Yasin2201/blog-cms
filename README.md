@@ -1,4 +1,17 @@
-# Blog Api
+# Blog CMS
+Blog CMS is the content managment system for the [Blog Client](https://github.com/Yasin2201/blog-client) utilizing the [Blog API](https://github.com/Yasin2201/blog-api) authorised users can: Edit and Delete Blog Posts, Delete Blog Comments and Create a New Blog Post.
+[Live Version](https://blog-cms-ten.vercel.app/login)
+
+![Live View](BlogCMS.gif)
+
+## Functionality
+* Create & Edit Posts
+* Delete Posts & Comments
+
+## Built With:
+* React
+* Fetch API
+* [Blog API](https://github.com/Yasin2201/blog-api)
 
 # Getting Started with Create React App
 
