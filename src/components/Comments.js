@@ -69,12 +69,17 @@ const Comments = ({ id, setUserAuthorised }) => {
                 {postComments.map((comment) => {
                     return (
                         <div className="comment-div" key={comment._id}>
-                            <h3>{comment.text}</h3>
-                            <p>{comment.date} @ {comment.time}</p>
-                            <p>Comment By {comment.username}</p>
-                            <button className="delete-btn" onClick={() => deleteComment(comment._id)}>
-                                Delete
-                            </button>
+                            <div className="comment-text">
+                                <h5>{comment.text}</h5>
+                            </div>
+                            <div>
+                                <hr />
+                                <p>{comment.date} @ {comment.time}</p>
+                                <p>Comment By {comment.username}</p>
+                                <button className="delete-btn" onClick={() => deleteComment(comment._id)}>
+                                    Delete
+                                </button>
+                            </div>
                         </div>
                     )
                 })

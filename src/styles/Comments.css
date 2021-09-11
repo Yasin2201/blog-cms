@@ -8,10 +8,22 @@
 .comment-div{
     text-align: center;
     width: 200px;
+    height: 200px;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     box-shadow: 0px 0px 10px rgb(190, 190, 190);
     border-radius: 20px;
     margin: 5px;
     padding: 5px;
+}
+
+.comment-text {
+    overflow: scroll;
+    /* text-overflow: ellipsis;
+    margin-bottom: 5px; */
+}
+
+.comment-div p {
+    margin: 0;
 }
